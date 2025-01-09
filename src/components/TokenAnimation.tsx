@@ -30,15 +30,16 @@ const Token = ({ initialX, initialY, scale = 1, rotation = 0, delay = 0, depth =
       style={{
         perspective: '1000px',
         transformStyle: 'preserve-3d',
-        zIndex: depth
+        zIndex: depth,
+        transform: `translate(${initialX}, ${initialY})`
       }}
-      initial={{ opacity: 0, scale: 0, x: initialX, y: initialY }}
+      initial={{ opacity: 0, scale: 0 }}
       animate={{
         opacity: 1,
         rotate: rotation,
         scale: [scale * 0.9, scale * 1.1, scale],
-        x: [initialX, `${Math.random() * 100}%`, initialX],
-        y: [initialY, `${Math.random() * 100}%`, initialY],
+        x: [`0px`, `${Math.random() * 100 - 50}px`, `0px`],
+        y: [`0px`, `${Math.random() * 100 - 50}px`, `0px`],
         z: [0, depth * 10, 0]
       }}
       transition={{
@@ -67,8 +68,8 @@ const Token = ({ initialX, initialY, scale = 1, rotation = 0, delay = 0, depth =
 
 const generateTokens = (count = 50) => {
   return Array.from({ length: count }, () => ({
-    initialX: `${Math.random() * 100}%`,   // Initial X position
-    initialY: `${Math.random() * 100}%`,   // Initial Y position
+    initialX: `${Math.random() * 100}vw`,  // Random initial X position in viewport width
+    initialY: `${Math.random() * 100}vh`,  // Random initial Y position in viewport height
     scale: 0.5 + Math.random() * 0.5,      // Random scale (0.5 to 1.0)
     rotation: Math.random() * 360,         // Random rotation (0 to 360 degrees)
     delay: Math.random() * 2,              // Random animation delay (0 to 2 seconds)
