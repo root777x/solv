@@ -21,28 +21,28 @@ const tokenStyles = {
   }
 };
 
-const Token = ({ x, y, scale = 1, rotation = 0, delay = 0, depth = 0, floatRange = 50 }) => {
-  const baseY = parseInt(y);
+const Token = ({ initialX, initialY, scale = 1, rotation = 0, delay = 0, depth = 0, floatRange = 50 }) => {
+  const duration = 20 + Math.random() * 10; // Random duration between 20 and 30 seconds
 
   return (
     <motion.div
       className="absolute"
       style={{
-        x,
         perspective: '1000px',
         transformStyle: 'preserve-3d',
         zIndex: depth
       }}
-      initial={{ opacity: 0, scale: 0, y: baseY }}
+      initial={{ opacity: 0, scale: 0, x: initialX, y: initialY }}
       animate={{
         opacity: 1,
         rotate: rotation,
         scale: [scale * 0.9, scale * 1.1, scale],
-        y: [baseY, baseY - floatRange, baseY],
+        x: [initialX, `${Math.random() * 100}%`, initialX],
+        y: [initialY, `${Math.random() * 100}%`, initialY],
         z: [0, depth * 10, 0]
       }}
       transition={{
-        duration: 8 + Math.random() * 4,
+        duration,
         delay,
         repeat: Infinity,
         repeatType: "reverse",
@@ -67,8 +67,8 @@ const Token = ({ x, y, scale = 1, rotation = 0, delay = 0, depth = 0, floatRange
 
 const generateTokens = (count = 50) => {
   return Array.from({ length: count }, () => ({
-    x: `${Math.random() * 100}%`,          // Random X position (0% to 100%)
-    y: `${Math.random() * 100}%`,          // Random Y position (0% to 100%)
+    initialX: `${Math.random() * 100}%`,   // Initial X position
+    initialY: `${Math.random() * 100}%`,   // Initial Y position
     scale: 0.5 + Math.random() * 0.5,      // Random scale (0.5 to 1.0)
     rotation: Math.random() * 360,         // Random rotation (0 to 360 degrees)
     delay: Math.random() * 2,              // Random animation delay (0 to 2 seconds)
