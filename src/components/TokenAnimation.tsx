@@ -23,18 +23,18 @@ const tokenStyles = {
 
 const Token = ({ x, y, scale = 1, rotation = 0, delay = 0, depth = 0, floatRange = 50 }) => {
   const baseY = parseInt(y);
-  
+
   return (
     <motion.div
       className="absolute"
-      style={{ 
+      style={{
         x,
         perspective: '1000px',
         transformStyle: 'preserve-3d',
         zIndex: depth
       }}
       initial={{ opacity: 0, scale: 0, y: baseY }}
-      animate={{ 
+      animate={{
         opacity: 1,
         rotate: rotation,
         scale: [scale * 0.9, scale * 1.1, scale],
@@ -49,7 +49,7 @@ const Token = ({ x, y, scale = 1, rotation = 0, delay = 0, depth = 0, floatRange
         ease: "easeInOut"
       }}
     >
-      <div 
+      <div
         className="relative"
         style={{
           width: `${140 * scale}px`,
@@ -65,31 +65,21 @@ const Token = ({ x, y, scale = 1, rotation = 0, delay = 0, depth = 0, floatRange
   );
 };
 
-const generateZonedTokens = () => {
-  const zones = [
-    { area: 'top-left', x: 0, y: 0 },
-    { area: 'top-right', x: 50, y: 0 },
-    { area: 'bottom-left', x: 0, y: 50 },
-    { area: 'bottom-right', x: 50, y: 50 },
-    { area: 'center', x: 25, y: 25 }
-  ];
-
-  return zones.flatMap(zone => 
-    Array.from({ length: 6 }, (_, i) => ({
-      x: `${zone.x + Math.random() * 50}%`,
-      y: `${zone.y + Math.random() * 50}%`,
-      scale: 0.3 + Math.random() * 0.7,
-      rotation: Math.random() * 360,
-      delay: Math.random() * 2,
-      depth: Math.floor(Math.random() * 10),
-      floatRange: 30 + Math.random() * 40
-    }))
-  );
+const generateTokens = (count = 50) => {
+  return Array.from({ length: count }, () => ({
+    x: `${Math.random() * 100}%`,          // Random X position (0% to 100%)
+    y: `${Math.random() * 100}%`,          // Random Y position (0% to 100%)
+    scale: 0.5 + Math.random() * 0.5,      // Random scale (0.5 to 1.0)
+    rotation: Math.random() * 360,         // Random rotation (0 to 360 degrees)
+    delay: Math.random() * 2,              // Random animation delay (0 to 2 seconds)
+    depth: Math.floor(Math.random() * 10), // Random depth for perspective effect
+    floatRange: 20 + Math.random() * 30    // Random float range (20 to 50px)
+  }));
 };
 
 export const TokenAnimation = () => {
-  const tokens = generateZonedTokens();
-  
+  const tokens = generateTokens(60); // Generate 60 tokens
+
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none">
       {tokens.map((token, i) => (
