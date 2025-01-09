@@ -26,21 +26,20 @@ const Token = ({ initialX, initialY, scale = 1, rotation = 0, delay = 0, depth =
 
   return (
     <motion.div
-      className="absolute"
       style={{
-        perspective: '1000px',
-        transformStyle: 'preserve-3d',
+        position: 'absolute',
+        top: initialY,
+        left: initialX,
         zIndex: depth,
-        transform: `translate(${initialX}, ${initialY})`
+        transformStyle: 'preserve-3d'
       }}
       initial={{ opacity: 0, scale: 0 }}
       animate={{
         opacity: 1,
         rotate: rotation,
         scale: [scale * 0.9, scale * 1.1, scale],
-        x: [`0px`, `${Math.random() * 100 - 50}px`, `0px`],
         y: [`0px`, `${Math.random() * 100 - 50}px`, `0px`],
-        z: [0, depth * 10, 0]
+        x: [`0px`, `${Math.random() * 100 - 50}px`, `0px`]
       }}
       transition={{
         duration,
@@ -66,10 +65,10 @@ const Token = ({ initialX, initialY, scale = 1, rotation = 0, delay = 0, depth =
   );
 };
 
-const generateTokens = (count = 50) => {
+const generateTokens = (count = 60) => {
   return Array.from({ length: count }, () => ({
-    initialX: `${Math.random() * 100}vw`,  // Random initial X position in viewport width
-    initialY: `${Math.random() * 100}vh`,  // Random initial Y position in viewport height
+    initialX: `${Math.random() * 100}%`,   // Random initial X position (in % of parent width)
+    initialY: `${Math.random() * 100}%`,   // Random initial Y position (in % of parent height)
     scale: 0.5 + Math.random() * 0.5,      // Random scale (0.5 to 1.0)
     rotation: Math.random() * 360,         // Random rotation (0 to 360 degrees)
     delay: Math.random() * 2,              // Random animation delay (0 to 2 seconds)
@@ -82,7 +81,7 @@ export const TokenAnimation = () => {
   const tokens = generateTokens(60); // Generate 60 tokens
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div className="relative w-full h-full fixed inset-0 overflow-hidden pointer-events-none">
       {tokens.map((token, i) => (
         <Token key={i} {...token} />
       ))}
