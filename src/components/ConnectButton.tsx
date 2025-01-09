@@ -24,7 +24,7 @@ export const ConnectButton = () => {
 
   return (
     <motion.button
-      className="group relative px-10 py-4 rounded-xl bg-purple-500 text-white text-lg font-bold overflow-hidden"
+      className="open group relative px-10 py-4 rounded-xl bg-purple-500 text-white text-lg font-bold overflow-hidden"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
