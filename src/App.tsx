@@ -30,7 +30,7 @@ function App() {
         </div>
 
         <div className="mt-12 text-center text-sm text-purple-200/60">
-          Powered by Polygon Network
+          Powered by Coinbase
         </div>
       </div>
     </div>
